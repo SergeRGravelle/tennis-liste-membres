@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- Use a templated HTML printing scriptlet to import common stylesheet. -->
+<?!=HtmlService.createHtmlOutputFromFile( 'Stylesheet').getContent(); ?>
+<html>
+<body>
+   <div>
+       <h3>Tennis Pincourt - Coordonnées des participants à la <span id="ligue-type"></span></h3>
+   </div>
+   <div>
+      <div class="block form-group">Entrer mot-de-passe du club:
+         <input type="password" id="password">  <span id="message"></span>
+   </div>
+   <div class="block">
+         <button class="action" id="submit-results">Afficher liste</button>
+   </div>
+         <p>
+         <div id="list">
+            <table id="liste-membres"> </table>
+         </div>
+</body>   
+</html>
+
+<!-- Store data passed to template here, so it is available to the imported JavaScript. -->
+<script>
+var ligue = <?= ligue ?>;
+</script>
+
+   <!-- Use a templated HTML printing scriptlet to import JavaScript. -->
+   <?!=HtmlService.createHtmlOutputFromFile( 'Javascript').getContent(); ?>

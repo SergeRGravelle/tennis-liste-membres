@@ -1,0 +1,51 @@
+<!-- Load the jQuery and jQuery UI libraries. -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+
+// =============  Global variables and configuration ====================
+
+
+// ============== main function ================================
+$(function () {
+
+    $("#submit-results").click(onSubmit);
+    
+    console.log(ligue);
+    $("#ligue-type").text(ligue);
+
+});
+
+
+function onSubmit() {
+    var password = $("#password").val();
+
+    google.script.run.withSuccessHandler(loadNames)
+        .getNames(password, ligue);
+
+}
+
+function loadNames(list) {
+
+    if (list == null) {
+       $("#message").text("Mauvais Mot-de-passe");
+    } 
+    else {
+       $("#message").text("OK");       
+       var table1 = $("#liste-membres");
+        
+       table1.append("<thead><tr><th>Nom</th><th>Tel</th><th>Mobile</th><th>Courriel</th><th>D/Rempl.</th><th>Niveau</th></tr></thead>");
+       
+       for (var i = 0; i < list.length; i++) {
+          table1.append('<tr><td>' + list[i].name  + '</td><td>' 
+                                   + list[i].tel   + '</td><td>' 
+                                   + list[i].cell  + '</td><td>' 
+                                   + '<a target="_blank" href="mailto:' + encodeURI(list[i].name) + '<' + encodeURI(list[i].email) + '>">'
+                                   + list[i].email + '</a></td><td>'
+                                   + list[i].categ + '</td><td>'
+                                   + list[i].niveau + '</td></tr>');
+       }
+    }
+}
+
+</script>
